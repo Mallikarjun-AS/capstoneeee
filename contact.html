@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - MuseumHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .modern-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: var(--pure-white);
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--royal-blue);
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+
+    .form-input::placeholder {
+        color: #9ca3af;
+    }
+
+    .modern-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .modern-btn.primary {
+        background: linear-gradient(45deg, var(--royal-blue), var(--navy-blue));
+        color: var(--pure-white);
+    }
+
+    .modern-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .modern-btn i {
+        font-size: 0.9rem;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .mt-3 {
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .modern-form {
+            padding: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="modern-form">
+    <h2 class="text-center mb-4" data-translate="contact_us">
+        <i class="fas fa-envelope"></i> Contact Us
+    </h2>
+    <form method="post">
+        <div class="form-group">
+            <label class="form-label" for="name" data-translate="name_label">Name</label>
+            <input class="form-input" type="text" id="name" name="name" required 
+                   data-translate="name_placeholder" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="email" data-translate="email_label">Email</label>
+            <input class="form-input" type="email" id="email" name="email" required 
+                   data-translate="email_placeholder" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="message" data-translate="message_label">Message</label>
+            <textarea class="form-input" id="message" name="message" rows="4" required 
+                      data-translate="message_placeholder" placeholder="Enter your message"></textarea>
+        </div>
+        <button type="submit" class="modern-btn primary w-100 mt-3">
+            <i class="fas fa-paper-plane"></i>
+            <span data-translate="send_message">Send Message</span>
+        </button>
+    </form>
+</div>
+{% endblock %}

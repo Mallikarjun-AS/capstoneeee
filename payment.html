@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+
+{% block title %}Payment - Ticket Booking System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .payment-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+    }
+
+    .payment-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .payment-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--royal-blue);
+        margin-bottom: 0.5rem;
+    }
+
+    .payment-header p {
+        color: var(--warm-gray);
+        font-size: 1.1rem;
+    }
+
+    .payment-box {
+        background: var(--pure-white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: var(--shadow-large);
+        border: 2px solid var(--light-gray);
+    }
+
+    .payment-methods {
+        margin-bottom: 2rem;
+    }
+
+    .payment-method {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-method:hover {
+        border-color: var(--royal-blue);
+        transform: translateY(-2px);
+    }
+
+    .payment-method.selected {
+        border-color: var(--royal-blue);
+        background: var(--soft-white);
+    }
+
+    .payment-method input {
+        margin-right: 1rem;
+    }
+
+    .payment-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: var(--royal-blue);
+    }
+
+    .payment-details {
+        margin-top: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: var(--pure-white);
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--royal-blue);
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+
+    .card-details {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .payment-summary {
+        background: var(--soft-white);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+
+    .summary-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--royal-blue);
+        padding-top: 1rem;
+        border-top: 2px solid var(--light-gray);
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--royal-blue), var(--navy-blue));
+        color: var(--pure-white);
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .btn-secondary {
+        background: var(--light-gray);
+        color: var(--text-dark);
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-secondary:hover {
+        background: var(--warm-gray);
+        color: var(--pure-white);
+    }
+
+    .security-notice {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--warm-gray);
+        font-size: 0.9rem;
+    }
+
+    .security-notice i {
+        color: var(--success-green);
+        margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .payment-container {
+            padding: 0 1rem;
+        }
+
+        .payment-box {
+            padding: 2rem 1.5rem;
+        }
+
+        .card-details {
+            grid-template-columns: 1fr;
+        }
+
+        .payment-header h2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <div class="payment-header">
+        <h2 data-translate="payment_heading">Complete Your Payment</h2>
+        <p data-translate="payment_subtitle">Secure payment for your museum tickets</p>
+    </div>
+
+    <div class="payment-box">
+        <div class="payment-summary">
+            <div class="summary-item">
+                <span data-translate="tickets_total">Tickets Total</span>
+                <span>₹680</span>
+            </div>
+            <div class="summary-item">
+                <span data-translate="service_fee">Service Fee</span>
+                <span>₹20</span>
+            </div>
+            <div class="summary-item">
+                <span data-translate="taxes">Taxes</span>
+                <span>₹50</span>
+            </div>
+            <div class="summary-total">
+                <span data-translate="total_amount">Total Amount</span>
+                <span>₹750</span>
+            </div>
+        </div>
+
+        <form action="{{ url_for('payment', ticket_id=ticket_id) }}" method="POST" id="payment-form">
+            <div class="payment-methods">
+                <div class="payment-method selected">
+                    <input type="radio" name="payment_method" value="card" checked>
+                    <i class="fas fa-credit-card payment-icon"></i>
+                    <div>
+                        <strong data-translate="credit_debit_card">Credit/Debit Card</strong>
+                        <p data-translate="card_payment_desc">Pay securely with your card</p>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" name="payment_method" value="upi">
+                    <i class="fas fa-mobile-alt payment-icon"></i>
+                    <div>
+                        <strong data-translate="upi_payment">UPI Payment</strong>
+                        <p data-translate="upi_payment_desc">Pay using UPI apps</p>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <input type="radio" name="payment_method" value="netbanking">
+                    <i class="fas fa-university payment-icon"></i>
+                    <div>
+                        <strong data-translate="net_banking">Net Banking</strong>
+                        <p data-translate="net_banking_desc">Transfer from your bank</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-details">
+                <div class="form-group">
+                    <label class="form-label" for="card_number" data-translate="card_number_label">Card Number</label>
+                    <input type="text" id="card_number" name="card_number" class="form-control" 
+                           placeholder="1234 5678 9012 3456" data-translate-placeholder="card_number_placeholder" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="card_holder" data-translate="card_holder_label">Card Holder Name</label>
+                    <input type="text" id="card_holder" name="card_holder" class="form-control" 
+                           placeholder="John Doe" data-translate-placeholder="card_holder_placeholder" required>
+                </div>
+
+                <div class="card-details">
+                    <div class="form-group">
+                        <label class="form-label" for="expiry_date" data-translate="expiry_date_label">Expiry Date</label>
+                        <input type="text" id="expiry_date" name="expiry_date" class="form-control" 
+                               placeholder="MM/YY" data-translate-placeholder="expiry_date_placeholder" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="cvv" data-translate="cvv_label">CVV</label>
+                        <input type="text" id="cvv" name="cvv" class="form-control" 
+                               placeholder="123" data-translate-placeholder="cvv_placeholder" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-lock"></i>
+                <span data-translate="pay_now_button">Pay Now ₹750</span>
+            </button>
+
+            <a href="/tickets" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                <span data-translate="cancel_payment">Cancel Payment</span>
+            </a>
+        </form>
+
+        <div class="security-notice">
+            <i class="fas fa-shield-alt"></i>
+            <span data-translate="secure_payment_notice">Your payment is secure and encrypted</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove selected class from all methods
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                // Add selected class to clicked method
+                this.classList.add('selected');
+                // Check the radio button
+                this.querySelector('input').checked = true;
+            });
+        });
+
+        // Card number formatting
+        const cardNumberInput = document.getElementById('card_number');
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let matches = value.match(/\d{4,16}/g);
+            let match = matches && matches[0] || '';
+            let parts = [];
+            
+            for (let i = 0, len = match.length; i < len; i += 4) {
+                parts.push(match.substring(i, i + 4));
+            }
+            
+            if (parts.length) {
+                e.target.value = parts.join(' ');
+            } else {
+                e.target.value = value;
+            }
+        });
+
+        // Expiry date formatting
+        const expiryInput = document.getElementById('expiry_date');
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+        });
+
+        // CVV formatting
+        const cvvInput = document.getElementById('cvv');
+        cvvInput.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+        });
+
+        // Form submission
+        const paymentForm = document.getElementById('payment-form');
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-primary');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
+            submitBtn.disabled = true;
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // Success simulation
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Payment Successful!';
+                submitBtn.style.background = 'var(--success-green)';
+                
+                setTimeout(() => {
+                    // Redirect to success page
+                    window.location.href = '/payment-success';
+                }, 1500);
+            }, 3000);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,392 @@
+{% extends "base.html" %}
+
+{% block title %}Security Policy - MuseumHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .security-wrapper {
+        max-width: 1000px;
+        margin: 3rem auto;
+        padding: 2rem 1.5rem 4rem;
+        background: var(--pure-white);
+        border-radius: 20px;
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--light-gray);
+    }
+
+    .security-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .security-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: var(--royal-blue);
+        margin-bottom: 0.5rem;
+    }
+
+    .security-header p {
+        color: #64748b;
+        font-size: 0.95rem;
+    }
+
+    .security-section {
+        margin-bottom: 2rem;
+    }
+
+    .security-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+        color: var(--royal-blue);
+    }
+
+    .security-section p,
+    .security-section li {
+        color: #475569;
+        font-size: 0.98rem;
+        line-height: 1.7;
+    }
+
+    .security-section ul {
+        padding-left: 1.2rem;
+        margin-top: 0.4rem;
+    }
+
+    .security-section ul li {
+        margin-bottom: 0.3rem;
+    }
+
+    .security-highlight {
+        background: #e0f2fe;
+        border-left: 4px solid #0284c7;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+        font-size: 0.95rem;
+    }
+
+    .security-strong {
+        font-weight: 600;
+        color: #0f766e;
+    }
+
+    @media (max-width: 768px) {
+        .security-wrapper {
+            margin: 2rem 1rem 3rem;
+            padding: 1.5rem 1.2rem 3rem;
+        }
+
+        .security-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="security-wrapper">
+    <div class="security-header">
+        <h1 data-translate="security_title">Security Policy</h1>
+        <p data-translate="security_intro">
+            At MuseumHub, we take the security and privacy of our visitors, users, and systems very seriously.
+            This Security Policy describes the technical, organizational, and physical measures we use to protect your data,
+            secure our website and applications, and maintain a safe environment inside the museum premises.
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color:#94a3b8;" data-translate="security_last_updated">
+            Last updated: 2024
+        </p>
+    </div>
+
+    <!-- 1. Scope -->
+    <section class="security-section">
+        <h2 data-translate="security_scope_title">1. Scope of This Policy</h2>
+        <p data-translate="security_scope_text">
+            This Security Policy applies to all MuseumHub digital platforms (including our website, ticket booking system,
+            AI chatbot, language translation system, virtual tours, and generated PDF tickets) as well as security practices
+            followed within the physical museum location. It covers data protection, access control, infrastructure security,
+            payments, email communication, and visitor safety measures.
+        </p>
+    </section>
+
+    <!-- 2. Technology Stack -->
+    <section class="security-section">
+        <h2 data-translate="security_stack_title">2. Technology Stack &amp; Application Architecture</h2>
+        <p data-translate="security_stack_text1">
+            MuseumHub is built using a modern web technology stack designed with security and reliability in mind:
+        </p>
+        <ul>
+            <li data-translate="security_stack_point1">
+                <strong>Backend:</strong> Flask (Python) as the main backend framework for routing, authentication,
+                and business logic.
+            </li>
+            <li data-translate="security_stack_point2">
+                <strong>Database Layer:</strong> Flask-SQLAlchemy with SQLite for structured, ORM-based database access,
+                reducing the risk of SQL injection through parameterized queries.
+            </li>
+            <li data-translate="security_stack_point3">
+                <strong>Templating:</strong> Jinja2 templates for rendering HTML views with automatic escaping of dynamic data to reduce XSS risks.
+            </li>
+            <li data-translate="security_stack_point4">
+                <strong>Frontend:</strong> HTML, CSS, and JavaScript for the user interface, chatbot interactions, and smooth UX.
+            </li>
+            <li data-translate="security_stack_point5">
+                <strong>Localization:</strong> Flask-Babel for multilingual support, ensuring translated content is managed safely on the server side.
+            </li>
+            <li data-translate="security_stack_point6">
+                <strong>CORS Control:</strong> Flask-CORS is used to control cross-origin requests in a safe and configurable way.
+            </li>
+            <li data-translate="security_stack_point7">
+                <strong>Email System:</strong> Flask-Mail for sending verification, notifications, and ticket emails securely.
+            </li>
+            <li data-translate="security_stack_point8">
+                <strong>PDF Tickets &amp; Documents:</strong> ReportLab (SimpleDocTemplate, Paragraph, Table, etc.) for generating ticket PDFs
+                and documents server-side, without exposing internal templates to the client.
+            </li>
+            <li data-translate="security_stack_point9">
+                <strong>Payments:</strong> Razorpay integration for secure online payments using industry-standard payment security.
+            </li>
+            <li data-translate="security_stack_point10">
+                <strong>Hashing &amp; Utilities:</strong> Python’s <code>hashlib</code> for cryptographic hashing, and safe usage of threading,
+                JSON handling, and file operations.
+            </li>
+        </ul>
+        <p data-translate="security_stack_text2">
+            We follow best practices in Flask application development, including separation of concerns, configuration via environment variables,
+            and minimal exposure of sensitive internal details.
+        </p>
+    </section>
+
+    <!-- 3. Authentication & Password Security -->
+    <section class="security-section">
+        <h2 data-translate="security_auth_title">3. Authentication &amp; Password Security</h2>
+
+        <div class="security-highlight">
+            <span class="security-strong" data-translate="security_hashing_strong">
+                SECURE CRYPTOGRAPHIC HASHING FOR LOGIN
+            </span>
+            <p style="margin-top: 0.4rem;" data-translate="security_hashing_text">
+                MuseumHub does <strong>not</strong> store plain-text passwords. All user passwords are protected using cryptographic hashing
+                (via Python’s <code>hashlib</code> and secure hashing algorithms). This means that even if someone accessed the database,
+                they would not see the original passwords in readable form.
+            </p>
+        </div>
+
+        <p data-translate="security_auth_text1">
+            When a user registers or logs in, their password is processed using a secure hashing function before storing or checking it against
+            the database. We do not log raw passwords anywhere in the system.
+        </p>
+        <ul>
+            <li data-translate="security_auth_point1">Passwords are never stored or transmitted in plain text.</li>
+            <li data-translate="security_auth_point2">Only hashed values are stored in the SQLAlchemy/SQLite database.</li>
+            <li data-translate="security_auth_point3">Login attempts can be monitored for suspicious behavior, such as brute-force attacks.</li>
+            <li data-translate="security_auth_point4">Sessions are managed securely using Flask’s built-in session management.</li>
+        </ul>
+    </section>
+
+    <!-- 4. Data Protection & Transmission -->
+    <section class="security-section">
+        <h2 data-translate="security_data_title">4. Data Protection &amp; Secure Transmission</h2>
+        <p data-translate="security_data_text1">
+            Personal data such as names, contact details, ticket information, and booking history are treated as sensitive
+            and are protected against unauthorized access, modification, or disclosure.
+        </p>
+        <ul>
+            <li data-translate="security_data_point1">
+                MuseumHub is intended to be deployed using <strong>HTTPS</strong> (TLS/SSL) so that all data transmitted between the user’s browser
+                and the server is encrypted in transit.
+            </li>
+            <li data-translate="security_data_point2">
+                Form inputs and API requests are validated and sanitized to reduce the risk of injection attacks and malformed data.
+            </li>
+            <li data-translate="security_data_point3">
+                Access to sensitive data in the SQLite database is restricted at the application level to authorized operations only.
+            </li>
+            <li data-translate="security_data_point4">
+                Generated PDFs (tickets, receipts) only contain necessary information and are created on the server using ReportLab,
+                reducing the exposure of internal structures or logic.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 5. CORS, API & Frontend Security -->
+    <section class="security-section">
+        <h2 data-translate="security_cors_title">5. CORS, Frontend &amp; API Security</h2>
+        <p data-translate="security_cors_text1">
+            MuseumHub uses JavaScript for interactive features including the chatbot, language switching, and dynamic updates.
+            Flask-CORS is used in a controlled manner to manage which origins are allowed to access backend APIs.
+        </p>
+        <ul>
+            <li data-translate="security_cors_point1">
+                Only approved origins are allowed to make cross-origin requests (as configured in CORS settings).
+            </li>
+            <li data-translate="security_cors_point2">
+                Data displayed in HTML templates is automatically escaped by Jinja2 to help prevent cross-site scripting (XSS).
+            </li>
+            <li data-translate="security_cors_point3">
+                JSON responses are structured and sanitized before being sent to the frontend.
+            </li>
+            <li data-translate="security_cors_point4">
+                Client-side JavaScript (including chatbot UI and translation scripts) does not store raw passwords or payment information.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 6. Email & Communication Security -->
+    <section class="security-section">
+        <h2 data-translate="security_email_title">6. Email &amp; Communication Security</h2>
+        <p data-translate="security_email_text1">
+            MuseumHub uses Flask-Mail to send emails such as booking confirmations, ticket PDFs, and important notifications.
+        </p>
+        <ul>
+            <li data-translate="security_email_point1">
+                Emails are sent through configured SMTP servers that can support TLS encryption for secure email transmission.
+            </li>
+            <li data-translate="security_email_point2">
+                We avoid including sensitive data (such as full payment credentials or passwords) in email content.
+            </li>
+            <li data-translate="security_email_point3">
+                PDF tickets generated using ReportLab may be attached to emails, containing only booking and visit details.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 7. Payments & Razorpay Security -->
+    <section class="security-section">
+        <h2 data-translate="security_payment_title">7. Payments &amp; Financial Security (Razorpay)</h2>
+        <p data-translate="security_payment_text1">
+            MuseumHub integrates <strong>Razorpay</strong> as a secure payment gateway for online ticket purchases and add-on services.
+            Razorpay provides PCI-DSS compliant payment processing and handles sensitive card or UPI details on its own infrastructure.
+        </p>
+        <ul>
+            <li data-translate="security_payment_point1">
+                Payment details (card numbers, CVV, UPI PIN, etc.) are not stored on the MuseumHub server or in the SQLite database.
+            </li>
+            <li data-translate="security_payment_point2">
+                Payment requests are initiated via Razorpay’s secure APIs, and the backend verifies payment status using Razorpay credentials and signatures.
+            </li>
+            <li data-translate="security_payment_point3">
+                Users are encouraged to verify Razorpay pages and never share OTPs or sensitive details with anyone claiming to be from MuseumHub.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 8. Logging, Monitoring & Thread Safety -->
+    <section class="security-section">
+        <h2 data-translate="security_monitoring_title">8. Logging, Monitoring &amp; Thread Safety</h2>
+        <p data-translate="security_monitoring_text1">
+            MuseumHub may use logging and basic monitoring to understand system health, performance, and suspicious activity.
+            Threading and locking mechanisms are used carefully to ensure safe access to shared resources where applicable.
+        </p>
+        <ul>
+            <li data-translate="security_monitoring_point1">
+                Important events (errors, failed logins, payment callbacks) may be logged for analysis and debugging.
+            </li>
+            <li data-translate="security_monitoring_point2">
+                Sensitive data such as passwords and full payment details are not written to logs.
+            </li>
+            <li data-translate="security_monitoring_point3">
+                Where multi-threading is used (via Python <code>threading.Lock</code> and similar), critical sections are protected to avoid race conditions and inconsistent state.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 9. Physical Security in the Museum -->
+    <section class="security-section">
+        <h2 data-translate="security_physical_title">9. Physical Security Inside the Museum</h2>
+        <p data-translate="security_physical_text1">
+            Security is not limited to the website; we also apply strong physical security controls within the museum premises to protect visitors,
+            staff, exhibits, and infrastructure.
+        </p>
+        <ul>
+            <li data-translate="security_physical_point1">
+                <strong>Access Control:</strong> Only visitors with valid tickets (digital or printed) are allowed entry during operating hours.
+            </li>
+            <li data-translate="security_physical_point2">
+                <strong>Surveillance:</strong> Key areas of the museum may be monitored with CCTV as per local laws and regulations.
+            </li>
+            <li data-translate="security_physical_point3">
+                <strong>Exhibit Protection:</strong> Sensitive or high-value exhibits may be secured behind glass, barriers, or restricted zones.
+            </li>
+            <li data-translate="security_physical_point4">
+                <strong>Emergency Measures:</strong> Fire exits, alarms, and evacuation plans are in place to ensure safety during emergencies.
+            </li>
+            <li data-translate="security_physical_point5">
+                <strong>Prohibited Items:</strong> Weapons, hazardous materials, and illegal substances are strictly forbidden on museum property.
+            </li>
+        </ul>
+        <p data-translate="security_physical_text2">
+            Visitors must follow staff instructions, safety signage, and museum rules at all times to maintain a secure environment.
+        </p>
+    </section>
+
+    <!-- 10. Protection of Exhibits & Equipment -->
+    <section class="security-section">
+        <h2 data-translate="security_exhibits_title">10. Protection of Exhibits, Devices &amp; Digital Installations</h2>
+        <p data-translate="security_exhibits_text1">
+            MuseumHub uses various digital experiences such as screens, VR setups, and interactive kiosks alongside traditional exhibits.
+        </p>
+        <ul>
+            <li data-translate="security_exhibits_point1">
+                Unauthorized tampering with exhibits, projectors, computers, VR headsets, networking hardware, or sensors is strictly prohibited.
+            </li>
+            <li data-translate="security_exhibits_point2">
+                Any intentional or negligent damage to museum property may result in fines, recovery of repair/replacement costs, and legal action.
+            </li>
+            <li data-translate="security_exhibits_point3">
+                Critical servers and networking equipment are kept in access-restricted areas.
+            </li>
+        </ul>
+    </section>
+
+    <!-- 11. User Responsibilities -->
+    <section class="security-section">
+        <h2 data-translate="security_users_title">11. User &amp; Visitor Responsibilities</h2>
+        <p data-translate="security_users_text1">
+            Security is a shared responsibility. To help protect your account, data, and the MuseumHub ecosystem, users and visitors are expected to:
+        </p>
+        <ul>
+            <li data-translate="security_users_point1">Use strong, unique passwords and keep them confidential.</li>
+            <li data-translate="security_users_point2">Log out from shared or public devices after using the MuseumHub website.</li>
+            <li data-translate="security_users_point3">Avoid sharing OTPs, passwords, or financial information with unverified sources.</li>
+            <li data-translate="security_users_point4">Respect museum property and report any suspicious activity or incidents to staff.</li>
+        </ul>
+    </section>
+
+    <!-- 12. Updates to Security Measures -->
+    <section class="security-section">
+        <h2 data-translate="security_updates_title">12. Changes &amp; Continuous Improvement</h2>
+        <p data-translate="security_updates_text1">
+            Threats, technologies, and best practices evolve over time. MuseumHub is committed to continuously improving its security posture by:
+        </p>
+        <ul>
+            <li data-translate="security_updates_point1">Reviewing and updating backend code, dependencies, and server configurations.</li>
+            <li data-translate="security_updates_point2">Enhancing access control, monitoring, and alerting mechanisms where applicable.</li>
+            <li data-translate="security_updates_point3">Refining physical security and visitor guidelines based on experience and feedback.</li>
+        </ul>
+        <p data-translate="security_updates_text2">
+            We may update this Security Policy periodically. Any changes will be effective when posted on the MuseumHub website.
+        </p>
+    </section>
+
+    <!-- 13. Contact for Security Concerns -->
+    <section class="security-section">
+        <h2 data-translate="security_contact_title">13. Contact for Security Questions</h2>
+        <p data-translate="security_contact_text1">
+            If you have questions about this Security Policy, or if you believe you have identified a security issue related to MuseumHub,
+            you can contact us at:
+        </p>
+        <ul>
+            <li><strong>MuseumHub Security Team</strong></li>
+            <li data-translate="security_contact_address">123 Culture Street, Art District</li>
+            <li>Email: <a href="mailto:security@museumhub.com">security@museumhub.com</a></li>
+            <li>General Support: <a href="mailto:info@museumhub.com">info@museumhub.com</a></li>
+            <li>Phone: <a href="tel:+919876543210">+91 98765 43210</a></li>
+        </ul>
+        <p style="margin-top: 0.7rem; font-size: 0.9rem; color:#94a3b8;" data-translate="security_note_not_legal_advice">
+            Note: This Security Policy describes general security practices and intentions for MuseumHub and does not constitute legal or compliance certification.
+        </p>
+    </section>
+</div>
+{% endblock %}

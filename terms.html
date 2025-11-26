@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+
+{% block title %}Terms & Conditions - MuseumHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .terms-wrapper {
+        max-width: 1000px;
+        margin: 3rem auto;
+        padding: 2rem 1.5rem 4rem;
+        background: var(--pure-white);
+        border-radius: 20px;
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--light-gray);
+    }
+
+    .terms-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .terms-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: var(--royal-blue);
+        margin-bottom: 0.5rem;
+    }
+
+    .terms-header p {
+        color: #64748b;
+        font-size: 0.95rem;
+    }
+
+    .terms-section {
+        margin-bottom: 2rem;
+    }
+
+    .terms-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+        color: var(--royal-blue);
+    }
+
+    .terms-section p,
+    .terms-section li {
+        color: #475569;
+        font-size: 0.98rem;
+        line-height: 1.7;
+    }
+
+    .terms-section ul {
+        padding-left: 1.2rem;
+        margin-top: 0.4rem;
+    }
+
+    .terms-section ul li {
+        margin-bottom: 0.3rem;
+    }
+
+    .terms-highlight {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+        font-size: 0.95rem;
+    }
+
+    .terms-strong {
+        font-weight: 600;
+        color: #b45309;
+    }
+
+    @media (max-width: 768px) {
+        .terms-wrapper {
+            margin: 2rem 1rem 3rem;
+            padding: 1.5rem 1.2rem 3rem;
+        }
+
+        .terms-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="terms-wrapper">
+    <div class="terms-header">
+        <h1 data-translate="terms_title">Terms &amp; Conditions</h1>
+        <p data-translate="terms_intro">
+            These Terms &amp; Conditions (“Terms”) govern your use of the MuseumHub website, online services, and physical visit experience.
+            By accessing or using MuseumHub, booking tickets, or visiting our premises, you agree to be bound by these Terms.
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color:#94a3b8;" data-translate="terms_last_updated">
+            Last updated: 2024
+        </p>
+    </div>
+
+    <!-- 1. Acceptance -->
+    <section class="terms-section">
+        <h2 data-translate="terms_acceptance_title">1. Acceptance of Terms</h2>
+        <p data-translate="terms_acceptance_text">
+            By using MuseumHub’s website, mobile experience, AI chatbot, or any other digital or on-site services, you acknowledge that you have read,
+            understood, and agree to be bound by these Terms &amp; Conditions, as well as our Privacy and Security policies.
+            If you do not agree to these Terms, you should not use our services or visit our premises.
+        </p>
+    </section>
+
+    <!-- 2. Eligibility -->
+    <section class="terms-section">
+        <h2 data-translate="terms_eligibility_title">2. Eligibility</h2>
+        <p data-translate="terms_eligibility_text">
+            To make bookings or create an account on MuseumHub, you must:
+        </p>
+        <ul>
+            <li data-translate="terms_eligibility_point1">Be at least 18 years of age, or have the consent and supervision of a legal guardian.</li>
+            <li data-translate="terms_eligibility_point2">Provide accurate, complete, and up-to-date information during registration and booking.</li>
+            <li data-translate="terms_eligibility_point3">Comply with all applicable local laws and regulations when using our services or visiting the museum.</li>
+        </ul>
+    </section>
+
+    <!-- 3. Account & Security -->
+    <section class="terms-section">
+        <h2 data-translate="terms_account_title">3. Account Registration &amp; Security</h2>
+        <p data-translate="terms_account_text1">
+            You may be required to create an account to access certain features such as ticket booking, history, and personalized services.
+            You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.
+        </p>
+        <p data-translate="terms_account_text2">
+            You agree to notify MuseumHub immediately of any unauthorized use of your account or any other breach of security.
+            MuseumHub is not liable for any loss or damage arising from your failure to secure your account.
+        </p>
+    </section>
+
+    <!-- 4. Ticket Booking -->
+    <section class="terms-section">
+        <h2 data-translate="terms_booking_title">4. Ticket Booking &amp; Use</h2>
+        <p data-translate="terms_booking_text1">
+            MuseumHub provides an online booking system for purchasing tickets to visit the museum and experience exhibits, events, or special programs.
+            By completing a booking, you confirm that all details provided (date, time, number of visitors, ticket type, etc.) are accurate.
+        </p>
+        <ul>
+            <li data-translate="terms_booking_point1">Tickets are valid only for the date, time slot, and purpose specified at the time of booking.</li>
+            <li data-translate="terms_booking_point2">Entry may be denied if you fail to present a valid ticket and a corresponding identity proof if required.</li>
+            <li data-translate="terms_booking_point3">Tickets are non-transferable unless explicitly allowed by MuseumHub for specific events or passes.</li>
+        </ul>
+    </section>
+
+    <!-- 5. Pricing & Payments -->
+    <section class="terms-section">
+        <h2 data-translate="terms_pricing_title">5. Pricing &amp; Payments</h2>
+        <p data-translate="terms_pricing_text1">
+            All prices for tickets, add-on services, and experiences are displayed on our platform and are subject to change at any time without prior notice.
+        </p>
+        <ul>
+            <li data-translate="terms_pricing_point1">Payments must be made in full at the time of booking using the available payment methods.</li>
+            <li data-translate="terms_pricing_point2">Any applicable taxes, service charges, or government levies will be added to the ticket price as required by law.</li>
+            <li data-translate="terms_pricing_point3">MuseumHub uses third-party payment gateways. We do not store your complete payment card details.</li>
+        </ul>
+    </section>
+
+    <!-- 6. Cancellation & No Refund Policy -->
+    <section class="terms-section">
+        <h2 data-translate="terms_refund_title">6. Cancellation, Rescheduling &amp; No-Refund Policy</h2>
+
+        <div class="terms-highlight">
+            <span class="terms-strong" data-translate="terms_no_refund_strong">
+                IMPORTANT: ALL CONFIRMED BOOKINGS ARE STRICTLY NON-REFUNDABLE.
+            </span>
+            <p style="margin-top: 0.4rem;" data-translate="terms_no_refund_text">
+                Once a ticket has been successfully booked and payment is completed, no refunds will be issued under any circumstances,
+                including but not limited to change of mind, personal emergencies, travel issues, late arrival, or failure to attend.
+            </p>
+        </div>
+
+        <p data-translate="terms_reschedule_text1">
+            In limited cases, MuseumHub may, at its sole discretion, allow rescheduling of visits subject to availability and internal policy.
+            Such rescheduling may incur additional charges. Approval of rescheduling requests is not guaranteed.
+        </p>
+        <p data-translate="terms_reschedule_text2">
+            If MuseumHub is required by law or government order to cancel or curtail operations (for example, due to safety, security, or health regulations),
+            we may provide alternative dates, credits, or other remedies as permitted by applicable law. Cash refunds are generally not provided unless explicitly required by law.
+        </p>
+    </section>
+
+    <!-- 7. Museum Entry, Conduct & Damage -->
+    <section class="terms-section">
+        <h2 data-translate="terms_conduct_title">7. Museum Entry, Visitor Conduct &amp; Damage to Property</h2>
+        <p data-translate="terms_conduct_text1">
+            All visitors are required to follow museum rules, staff instructions, and signage displayed within the premises.
+            MuseumHub reserves the right to deny entry or request any visitor to leave the premises in case of inappropriate behavior, safety concerns, or violation of rules,
+            without any refund or compensation.
+        </p>
+
+        <ul>
+            <li data-translate="terms_conduct_point1">Visitors must not touch, damage, deface, or interfere with any exhibits, installations, artifacts, or equipment.</li>
+            <li data-translate="terms_conduct_point2">Bringing hazardous items, weapons, illegal substances, or prohibited materials into the museum is strictly forbidden.</li>
+            <li data-translate="terms_conduct_point3">Visitors are responsible for supervising their children, dependents, or group members at all times.</li>
+        </ul>
+
+        <div class="terms-highlight">
+            <span class="terms-strong" data-translate="terms_damage_strong">
+                DAMAGE TO PROPERTY &amp; FINES
+            </span>
+            <p style="margin-top: 0.4rem;" data-translate="terms_damage_text1">
+                Any damage, destruction, or loss caused—whether willful, negligent, or accidental—to MuseumHub property, exhibits, digital equipment,
+                infrastructure, or third-party installations will result in financial liability on the responsible visitor(s).
+            </p>
+            <p data-translate="terms_damage_text2">
+                MuseumHub reserves the right to:
+            </p>
+            <ul>
+                <li data-translate="terms_damage_point1">Impose appropriate fines and recovery charges to cover repair, restoration, or replacement costs.</li>
+                <li data-translate="terms_damage_point2">Seek compensation through legal proceedings under applicable civil and criminal laws.</li>
+                <li data-translate="terms_damage_point3">Share relevant details with law enforcement authorities where required.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 8. Digital Services & AI Assistant -->
+    <section class="terms-section">
+        <h2 data-translate="terms_digital_title">8. Digital Services, Virtual Tours &amp; AI Assistant</h2>
+        <p data-translate="terms_digital_text1">
+            MuseumHub may offer digital services such as virtual tours, 3D exhibits, AI-powered chat assistance, and multilingual content.
+            These services are provided for informational and experiential purposes only and may not always be fully accurate, complete, or up to date.
+        </p>
+        <p data-translate="terms_digital_text2">
+            You agree not to misuse, reverse-engineer, probe, or attempt to disrupt our digital platforms, translation systems, or AI services.
+            MuseumHub is not liable for interruptions, delays, or inaccuracies arising from technical issues, network problems, or third-party providers.
+        </p>
+    </section>
+
+    <!-- 9. Intellectual Property -->
+    <section class="terms-section">
+        <h2 data-translate="terms_ip_title">9. Intellectual Property</h2>
+        <p data-translate="terms_ip_text1">
+            All content on MuseumHub, including but not limited to logos, trademarks, text, graphics, images, audio-visual content, 3D models, software,
+            and design elements, is owned by or licensed to MuseumHub and is protected by intellectual property laws.
+        </p>
+        <p data-translate="terms_ip_text2">
+            You are not permitted to copy, reproduce, distribute, modify, publish, or create derivative works from any content without prior written permission.
+            Limited personal, non-commercial viewing and use is allowed as part of your normal visit or interaction with our services.
+        </p>
+    </section>
+
+    <!-- 10. Privacy & Security -->
+    <section class="terms-section">
+        <h2 data-translate="terms_privacy_title">10. Privacy &amp; Security</h2>
+        <p data-translate="terms_privacy_text1">
+            MuseumHub values your privacy and data security. Information collected during account creation, booking, or visiting our premises
+            is handled in accordance with our Privacy Policy and Security Policy.
+        </p>
+        <p data-translate="terms_privacy_text2">
+            While we implement reasonable security measures, no system is completely secure. By using our services, you accept the inherent risks
+            associated with online transactions and data transmission.
+        </p>
+    </section>
+
+    <!-- 11. Third-Party Services -->
+    <section class="terms-section">
+        <h2 data-translate="terms_third_party_title">11. Third-Party Services &amp; Links</h2>
+        <p data-translate="terms_third_party_text">
+            MuseumHub may integrate or provide links to third-party websites, payment gateways, content providers, or social media platforms.
+            We do not control and are not responsible for the content, policies, or practices of these third parties.
+            Your use of third-party services is at your own risk and subject to their respective terms and privacy policies.
+        </p>
+    </section>
+
+    <!-- 12. Disclaimers -->
+    <section class="terms-section">
+        <h2 data-translate="terms_disclaimer_title">12. Disclaimers</h2>
+        <p data-translate="terms_disclaimer_text1">
+            MuseumHub strives to provide accurate information, high-quality exhibits, and a safe environment. However, all services are provided on an “as is”
+            and “as available” basis, without warranties of any kind, either express or implied.
+        </p>
+        <p data-translate="terms_disclaimer_text2">
+            We do not guarantee uninterrupted access, error-free content, or that defects will be corrected immediately.
+            To the fullest extent permitted by law, MuseumHub disclaims all warranties, including but not limited to implied warranties of merchantability,
+            fitness for a particular purpose, and non-infringement.
+        </p>
+    </section>
+
+    <!-- 13. Limitation of Liability -->
+    <section class="terms-section">
+        <h2 data-translate="terms_liability_title">13. Limitation of Liability</h2>
+        <p data-translate="terms_liability_text1">
+            To the maximum extent permitted by law, MuseumHub, its directors, employees, partners, and affiliates shall not be liable for any indirect,
+            incidental, special, consequential, or punitive damages arising out of or in connection with your use of our services or visit to our premises.
+        </p>
+        <p data-translate="terms_liability_text2">
+            Our total aggregate liability for any claim, whether in contract, tort, or otherwise, shall not exceed the total amount paid by you to MuseumHub
+            for the relevant booking or service giving rise to the claim.
+        </p>
+    </section>
+
+    <!-- 14. Indemnity -->
+    <section class="terms-section">
+        <h2 data-translate="terms_indemnity_title">14. Indemnity</h2>
+        <p data-translate="terms_indemnity_text">
+            You agree to indemnify, defend, and hold harmless MuseumHub and its staff, partners, and affiliates from and against any claims, liabilities,
+            damages, losses, and expenses, including reasonable legal fees, arising out of or related to:
+        </p>
+        <ul>
+            <li data-translate="terms_indemnity_point1">Your use or misuse of our website, services, or premises.</li>
+            <li data-translate="terms_indemnity_point2">Your violation of these Terms or any applicable law.</li>
+            <li data-translate="terms_indemnity_point3">Any damage or loss caused by you or members of your group to MuseumHub property or third-party property.</li>
+        </ul>
+    </section>
+
+    <!-- 15. Changes to Terms -->
+    <section class="terms-section">
+        <h2 data-translate="terms_changes_title">15. Changes to These Terms</h2>
+        <p data-translate="terms_changes_text">
+            MuseumHub reserves the right to update, modify, or replace these Terms at any time.
+            Changes will be effective upon posting on our website or notifying users by reasonable means.
+            Your continued use of our services or visit to the museum after such changes constitutes your acceptance of the updated Terms.
+        </p>
+    </section>
+
+    <!-- 16. Governing Law & Jurisdiction -->
+    <section class="terms-section">
+        <h2 data-translate="terms_law_title">16. Governing Law &amp; Jurisdiction</h2>
+        <p data-translate="terms_law_text1">
+            These Terms &amp; Conditions shall be governed by and construed in accordance with the laws of India,
+            without regard to its conflict of law principles.
+        </p>
+        <p data-translate="terms_law_text2">
+            You agree that the courts located in your museum’s jurisdiction (e.g., Bengaluru, Karnataka) shall have exclusive jurisdiction
+            over any dispute arising out of or in connection with these Terms or your use of MuseumHub’s services.
+        </p>
+    </section>
+
+    <!-- 17. Contact Information -->
+    <section class="terms-section">
+        <h2 data-translate="terms_contact_title">17. Contact Information</h2>
+        <p data-translate="terms_contact_text1">
+            If you have any questions or concerns about these Terms &amp; Conditions, you may contact us at:
+        </p>
+        <ul>
+            <li><strong>MuseumHub</strong></li>
+            <li data-translate="terms_contact_address">123 Culture Street, Art District</li>
+            <li>Email: <a href="mailto:info@museumhub.com">info@museumhub.com</a></li>
+            <li>Phone: <a href="tel:+919876543210">+91 98765 43210</a></li>
+        </ul>
+        <p style="margin-top: 0.7rem; font-size: 0.9rem; color:#94a3b8;" data-translate="terms_note_not_legal_advice">
+            Note: These Terms are provided as a general framework and do not constitute legal advice.
+            For full legal compliance, you may wish to have them reviewed by a qualified legal professional.
+        </p>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,612 @@
+{% extends "base.html" %}
+
+{% block title %}{% block translate %}home_title{% endblock %}Home - MuseumHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--royal-blue) 0%, var(--navy-blue) 50%, var(--light-blue) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        padding: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 4.5rem;
+        font-weight: 800;
+        color: var(--pure-white);
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-title i {
+        color: var(--gold-accent);
+        margin-right: 1rem;
+        font-size: 4rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 3rem;
+        font-weight: 300;
+        animation: fadeInUp 1s ease-out 0.2s both;
+        line-height: 1.7;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    .royal-btn {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .royal-btn.primary {
+        background: linear-gradient(45deg, var(--gold-accent), #fbbf24);
+        color: var(--pure-white);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .royal-btn.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-large);
+        background: linear-gradient(45deg, #d97706, var(--gold-accent));
+    }
+
+    .royal-btn.secondary {
+        background: transparent;
+        color: var(--pure-white);
+        border: 2px solid var(--pure-white);
+    }
+
+    .royal-btn.secondary:hover {
+        background: var(--pure-white);
+        color: var(--royal-blue);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    /* Floating Elements */
+    .floating-elements {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .floating-element {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.1);
+        font-size: 3rem;
+        animation: float 8s infinite ease-in-out;
+    }
+
+    .floating-element:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+        top: 60%;
+        right: 15%;
+        animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 4s;
+    }
+
+    /* Main Content Sections */
+    .content-section {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease;
+    }
+
+    .content-section.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--royal-blue);
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(45deg, var(--gold-accent), #fbbf24);
+        border-radius: 2px;
+    }
+
+    .section-header p {
+        font-size: 1.2rem;
+        color: #64748b;
+        font-weight: 300;
+    }
+
+    /* Grid Layout */
+    .royal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+
+    /* Feature Cards */
+    .royal-card {
+        background: var(--pure-white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        box-shadow: var(--shadow-light);
+        border: 1px solid var(--light-gray);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .royal-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--royal-blue), var(--light-blue), var(--accent-blue));
+    }
+
+    .royal-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-large);
+        border-color: var(--light-blue);
+    }
+
+    .feature-icon, .action-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--royal-blue), var(--light-blue));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        position: relative;
+        box-shadow: var(--shadow-medium);
+    }
+
+
+
+
+
+
+
+
+
+.video-container video {
+    transition: 0.3s ease;
+}
+
+.video-container video:hover {
+    transform: scale(1.01);
+    box-shadow: var(--shadow-large);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    .feature-icon i, .action-icon i {
+        font-size: 2rem;
+        color: var(--pure-white);
+    }
+
+    .royal-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--royal-blue);
+        margin-bottom: 1rem;
+    }
+
+    .royal-card p {
+        color: #64748b;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Feature Stats */
+    .feature-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--light-gray);
+    }
+
+    .feature-stats span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--royal-blue);
+    }
+
+    .feature-stats i {
+        color: var(--gold-accent);
+    }
+
+    /* Action Cards Button */
+    .action-btn {
+        background: linear-gradient(135deg, var(--royal-blue), var(--light-blue));
+        color: var(--pure-white);
+        padding: 0.75rem 2rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9rem;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+        background: linear-gradient(135deg, var(--light-blue), var(--accent-blue));
+    }
+
+    /* Animations */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+        50% {
+            transform: translateY(-10px) rotate(-5deg);
+        }
+        75% {
+            transform: translateY(-15px) rotate(3deg);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 3rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+        }
+        
+        .royal-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .content-section {
+            padding: 4rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title" data-translate="welcome_title">
+            <i class="fas fa-museum"></i>
+            Welcome to MuseumHub
+        </h1>
+        <p class="hero-subtitle" data-translate="welcome_subtitle">
+            Experience art and history like never before with our immersive 3D exhibits and AI-powered guided tours
+        </p>
+        <div class="hero-buttons">
+            <a href="book_ticket" class="royal-btn primary" data-translate="book_tickets_btn">
+                <i class="fas fa-ticket-alt"></i>
+                <span>Book Tickets</span>
+            </a>
+            <a href="view" class="royal-btn secondary" data-translate="explore_exhibits_btn">
+                <i class="fas fa-eye"></i>
+                <span>Explore Exhibits</span>
+            </a>
+        </div>
+    </div>
+    <!-- 3D Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element">
+            <i class="fas fa-palette"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-landmark"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-scroll"></i>
+        </div>
+    </div>
+</section>
+
+
+<!-- Video Showcase Section -->
+<section class="video-section" style="padding: 4rem 2rem; text-align: center;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--royal-blue); margin-bottom: 1rem;"
+        data-translate="museum_video_title">
+        Experience the Museum Like Never Before
+    </h2>
+
+    <p style="color: #64748b; font-size: 1.2rem; margin-bottom: 2rem;" 
+        data-translate="museum_video_subtitle">
+        Watch this immersive preview of our exhibits and virtual tour experience.
+    </p>
+
+    <div class="video-container" style="max-width: 900px; margin: 0 auto;">
+        <video id="museumVideo" loop playsinline
+       style="width: 100%; border-radius: 15px; box-shadow: var(--shadow-medium);">
+    <source src="{{ url_for('static', filename='videos/museum_preview.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+
+
+    </div>
+</section>
+
+
+
+
+<!-- Features Section -->
+<section class="content-section">
+    <div class="section-header">
+        <h2 data-translate="why_choose_title">Why Choose MuseumHub?</h2>
+        <p data-translate="why_choose_subtitle">Discover the future of museum experiences with royal elegance</p>
+    </div>
+    <div class="royal-grid">
+        <div class="royal-card">
+            <div class="feature-icon">
+                <i class="fas fa-vr-cardboard"></i>
+            </div>
+            <h3 data-translate="virtual_tours_title">3D Virtual Tours</h3>
+            <p data-translate="virtual_tours_desc">Explore exhibits in stunning 3D with interactive virtual reality experiences that bring history to life with unprecedented detail and immersion.</p>
+            <div class="feature-stats">
+                <span><i class="fas fa-users"></i> <span data-translate="visitors_count">10K+ Visitors</span></span>
+                <span><i class="fas fa-star"></i> <span data-translate="rating_value">4.9/5 Rating</span></span>
+            </div>
+        </div>
+        <div class="royal-card">
+            <div class="feature-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3 data-translate="ai_assistant_title">AI Assistant</h3>
+            <p data-translate="ai_assistant_desc">Get personalized guidance from our intelligent chatbot that knows every exhibit and can answer any question with scholarly precision.</p>
+            <div class="feature-stats">
+                <span><i class="fas fa-comments"></i> <span data-translate="support_hours">24/7 Support</span></span>
+                <span><i class="fas fa-brain"></i> <span data-translate="smart_learning">Smart Learning</span></span>
+            </div>
+        </div>
+        <div class="royal-card">
+            <div class="feature-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <h3 data-translate="multilingual_title">Multilingual Support</h3>
+            <p data-translate="multilingual_desc">Experience exhibits in your preferred language with our advanced translation and localization features for a truly global experience.</p>
+            <div class="feature-stats">
+                <span><i class="fas fa-language"></i> <span data-translate="languages_count">10+ Languages</span></span>
+                <span><i class="fas fa-globe-americas"></i> <span data-translate="global_access">Global Access</span></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions Section -->
+<section class="content-section">
+    <div class="section-header">
+        <h2 data-translate="quick_actions_title">Quick Actions</h2>
+        <p data-translate="quick_actions_subtitle">Begin your extraordinary museum journey</p>
+    </div>
+    <div class="royal-grid">
+        <div class="royal-card">
+            <div class="action-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3 data-translate="book_tickets_action">Book Tickets</h3>
+            <p data-translate="book_tickets_desc">Reserve your spot for upcoming exhibits and special events. Secure your place in history with our premium booking system.</p>
+            <a href="book_ticket" class="action-btn" data-translate="book_now_btn">
+                <span>Book Now</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="royal-card">
+            <div class="action-icon">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <h3 data-translate="my_tickets_action">My Tickets</h3>
+            <p data-translate="my_tickets_desc">View and manage your booked tickets with ease. Access your digital tickets and receive important updates.</p>
+            <a href="my_tickets" class="action-btn" data-translate="view_tickets_btn">
+                <span>View Tickets</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="royal-card">
+            <div class="action-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3 data-translate="ask_ai_action">Ask the AI</h3>
+            <p data-translate="ask_ai_desc">Chat with our sophisticated AI assistant for instant help, detailed information, and personalized recommendations.</p>
+            <a href="chatbot" class="action-btn" data-translate="chat_now_btn">
+                <span>Chat Now</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Scroll animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all content sections
+    document.querySelectorAll('.content-section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+
+// Video autoplay & unmute when in section
+const video = document.getElementById('museumVideo');
+const videoSection = document.querySelector('.video-section');
+let soundEnabled = false;
+
+// Observe when video section becomes visible
+const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+
+            // If sound is enabled (user interacted), unmute
+            if (soundEnabled) {
+                video.muted = false;
+            } else {
+                video.muted = true; // browser requirement
+            }
+
+            video.play().catch(() => {});
+        } else {
+            video.pause();
+        }
+    });
+}, { threshold: 0.5 });
+
+videoObserver.observe(videoSection);
+
+// Enable sound after user interaction
+function enableSound() {
+    soundEnabled = true;
+    video.muted = false;
+    video.play().catch(() => {}); // try playing again with audio
+    window.removeEventListener('click', enableSound);
+    window.removeEventListener('touchstart', enableSound);
+}
+
+window.addEventListener('click', enableSound);
+window.addEventListener('touchstart', enableSound);
+
+
+
+
+</script>
+{% endblock %}
